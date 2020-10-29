@@ -2,8 +2,8 @@
 // --------------------------------------------------
 
 var World = function() {
-	// Load Tiled map
-	this.generate = function() {
+    // Load Tiled map
+    this.generate = function() {
         this.map = TileMaps['level1'];
         this.createMap();
 

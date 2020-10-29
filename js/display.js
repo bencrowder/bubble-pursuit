@@ -2,24 +2,24 @@
 // --------------------------------------------------
 
 var Display = function() {
-	this.player;
-	this.obstacles = [];
-	this.light;
-	this.spotlight;
+    this.player;
+    this.obstacles = [];
+    this.light;
+    this.spotlight;
 
     this.init = function() {
-		// Resize page
-		$("#page").width(server.settings.screen.width);
+        // Resize page
+        $("#page").width(server.settings.screen.width);
 
         server.scene = new THREE.Scene();
 
-		server.camera = new THREE.PerspectiveCamera(
+        server.camera = new THREE.PerspectiveCamera(
             server.settings.screen.fov,
             server.settings.screen.aspect,
             server.settings.screen.near,
             server.settings.screen.far,
         );
-		server.camera.up = new THREE.Vector3(0, 1, 0);
+        server.camera.up = new THREE.Vector3(0, 1, 0);
         server.camera.position.set(
             server.settings.player.initialX,
             server.settings.player.initialY,
@@ -33,12 +33,12 @@ var Display = function() {
         server.camera.flux = 0.02;
 
         server.renderer = new THREE.WebGLRenderer({ antialias: true });
-		server.renderer.setSize(server.settings.screen.width, server.settings.screen.height);
-		server.renderer.setClearColor(new THREE.Color(0x000000));
-		server.renderer.shadowMap.enabled = true;
-		server.renderer.shadowMap.soft = true;
+        server.renderer.setSize(server.settings.screen.width, server.settings.screen.height);
+        server.renderer.setClearColor(new THREE.Color(0x000000));
+        server.renderer.shadowMap.enabled = true;
+        server.renderer.shadowMap.soft = true;
 
-		$("#container").append(server.renderer.domElement);
+        $("#container").append(server.renderer.domElement);
         setTimeout(function() {
             $("#container img#intro").fadeOut(2500);
 
@@ -52,7 +52,7 @@ var Display = function() {
         server.c = server.canvas.getContext("2d");
 
         this.initFloor();
-		this.initLights();
+        this.initLights();
         this.initPlayer();
     };
 
@@ -77,8 +77,8 @@ var Display = function() {
         floor.position.z = -40;
     };
 
-	// Set up player
-	this.initPlayer = function() {
+    // Set up player
+    this.initPlayer = function() {
         let t = this;
 
         // Convert 45 degrees to radians, 19 steps per move
@@ -111,10 +111,10 @@ var Display = function() {
         t.playerShadow = new THREE.Mesh(shadowGeo, shadowMat);
         t.playerShadow.position.set(server.player.x, server.player.y, 0.52);
         server.scene.add(t.playerShadow);
-	};
+    };
 
-	// Set up lights
-	this.initLights = function() {
+    // Set up lights
+    this.initLights = function() {
         this.hemiLight = new THREE.HemisphereLight(0x000033, 0xffeecc, 0.4);
         server.scene.add(this.hemiLight);
 
@@ -124,15 +124,15 @@ var Display = function() {
         this.dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
         this.dirLight.position.set(-5, -5, 5);
         server.scene.add(this.dirLight);
-	};
+    };
 
-	this.render = function() {
-		if (!server.paused) {
-			const x = server.player.x;
-			const y = server.player.y;
-			const z = server.player.z;
+    this.render = function() {
+        if (!server.paused) {
+            const x = server.player.x;
+            const y = server.player.y;
+            const z = server.player.z;
 
-			// Update player avatar location
+            // Update player avatar location
             if (this.player) {
                 this.player.position.x = x;
                 this.player.position.y = y;
@@ -215,16 +215,16 @@ var Display = function() {
                 }
             }
 
-			// Render the scene
-			server.renderer.render(server.scene, server.camera);
-		}
-	};
+            // Render the scene
+            server.renderer.render(server.scene, server.camera);
+        }
+    };
 
-	this.gameOver = function() {
-		$("body").prepend("<h1 id='gamescreen'>GAME OVER</h1><div id='gameoverscreen' class='gamescreen'></div>");
-	};
+    this.gameOver = function() {
+        $("body").prepend("<h1 id='gamescreen'>GAME OVER</h1><div id='gameoverscreen' class='gamescreen'></div>");
+    };
 
-	this.win = function() {
-		$("body").prepend("<h1 id='gamescreen'>YOU WON!</h1><div id='winscreen' class='gamescreen'></div>");
-	};
+    this.win = function() {
+        $("body").prepend("<h1 id='gamescreen'>YOU WON!</h1><div id='winscreen' class='gamescreen'></div>");
+    };
 };

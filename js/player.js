@@ -14,7 +14,7 @@ const key_S = 83;
 const key_D = 68;
 
 var Player = function() {
-	this.init = function() {
+    this.init = function() {
         this.x = server.settings.player.initialX;
         this.y = server.settings.player.initialY;
         this.z = server.settings.player.initialZ;
@@ -37,7 +37,7 @@ var Player = function() {
         this.moving = false;
         this.falling = false;
         this.brokenTile = null;
-	};
+    };
 
     this.checkTile = function(nx, ny) {
         tile = server.world.getTile(nx, ny);
@@ -216,26 +216,26 @@ var Player = function() {
         }
     };
 
-	this.keypressed = function() {
-		if (server.keys[key_LEFT] || server.keys[key_A]) {
+    this.keypressed = function() {
+        if (server.keys[key_LEFT] || server.keys[key_A]) {
             this.moveInDir(this.LEFT);
-		}
+        }
 
-		if (server.keys[key_RIGHT] || server.keys[key_D]) {
+        if (server.keys[key_RIGHT] || server.keys[key_D]) {
             this.moveInDir(this.RIGHT);
-		}
+        }
 
-		if (server.keys[key_UP] || server.keys[key_W]) {
+        if (server.keys[key_UP] || server.keys[key_W]) {
             this.moveInDir(this.UP);
-		}
+        }
 
-		if (server.keys[key_DOWN] || server.keys[key_S]) {
+        if (server.keys[key_DOWN] || server.keys[key_S]) {
             this.moveInDir(this.DOWN);
-		}
-	};
+        }
+    };
 
     this.keyUp = function(e) {
-		delete server.keys[e.which];
+        delete server.keys[e.which];
 
         // Remove from directions if there
         mappedKey = this.mapKey(e.which);
